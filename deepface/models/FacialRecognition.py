@@ -19,6 +19,13 @@ class FacialRecognition(ABC):
     output_shape: int
 
     def forward(self, img: np.ndarray) -> List[float]:
+
+        # model.predict causes memory issue when it is called in a for loop
+        # embedding = model.predict(img, verbose=0)[0].tolist()
+        # return self.model(img, training=False).numpy()[0].tolist()
+        return self.model(img)
+
+    def forward_(self, img: np.ndarray) -> List[float]:
         if not isinstance(self.model, Model):
             raise ValueError(
                 "You must overwrite forward method if it is not a keras model,"
@@ -26,4 +33,5 @@ class FacialRecognition(ABC):
             )
         # model.predict causes memory issue when it is called in a for loop
         # embedding = model.predict(img, verbose=0)[0].tolist()
-        return self.model(img, training=False).numpy()[0].tolist()
+        # return self.model(img, training=False).numpy()[0].tolist()
+        return self.model(img)

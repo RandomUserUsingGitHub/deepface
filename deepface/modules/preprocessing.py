@@ -66,8 +66,8 @@ def normalize_input(img: np.ndarray, normalization: str = "base") -> np.ndarray:
         # Reference study: The faces are cropped and resized to 112×112,
         # and each pixel (ranged between [0, 255]) in RGB images is normalised
         # by subtracting 127.5 then divided by 128.
-        img -= 127.5
-        img /= 128
+        img = img.transpose(0, 3, 1, 2).astype("float32")
+        img = (img - 127.5) * 0.0078125
     else:
         raise ValueError(f"unimplemented normalization type - {normalization}")
 
