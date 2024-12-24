@@ -249,7 +249,9 @@ def detect_faces(
 
     # find facial areas of given image
     facial_areas = face_detector.detect_faces(img)
+    print(f"-------- len facial areas: {len(facial_areas)}")
     if len(facial_areas) == 0:
+        print("------------- travis scott")
         backup_face_detector: Detector = modeling.build_model(
             task="face_detector", model_name=backup_detector_backend
         )
