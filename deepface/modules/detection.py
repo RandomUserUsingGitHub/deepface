@@ -194,7 +194,7 @@ def detect_faces(
     align: bool = True,
     expand_percentage: int = 0,
     max_faces: Optional[int] = None,
-    backup_detector_backend: str = "Retinaface",
+    backup_detector_backend: str = "retinaface",
 ) -> List[DetectedFace]:
     """
     Detect face(s) from a given image
