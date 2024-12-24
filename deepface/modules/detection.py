@@ -101,7 +101,7 @@ def extract_faces(
             expand_percentage=expand_percentage,
             max_faces=max_faces,
         )
-
+        
     # in case of no face found
     if len(face_objs) == 0 and enforce_detection is True:
         if img_name is not None:
@@ -194,6 +194,7 @@ def detect_faces(
     align: bool = True,
     expand_percentage: int = 0,
     max_faces: Optional[int] = None,
+    backup_detector_backend: str = "Retinaface",
 ) -> List[DetectedFace]:
     """
     Detect face(s) from a given image
@@ -248,6 +249,12 @@ def detect_faces(
 
     # find facial areas of given image
     facial_areas = face_detector.detect_faces(img)
+    if len(facial_areas) == 0:
+        backup_face_detector: Detector = modeling.build_model(
+            task="face_detector", model_name=backup_detector_backend
+        )
+        facial_areas = backup_face_detector.detect_faces(img)
+
 
     if max_faces is not None and max_faces < len(facial_areas):
         facial_areas = nlargest(
