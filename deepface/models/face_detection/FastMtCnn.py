@@ -76,7 +76,7 @@ class FastMtCnnClient(Detector):
             ) from e
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        face_detector = fast_mtcnn(device=device, thresholds=[0.6, 0.7, 0.8]) 
+        face_detector = fast_mtcnn(device=device, thresholds=[0.65, 0.8, 0.85]) 
 
         return face_detector
 
